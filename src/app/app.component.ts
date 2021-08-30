@@ -15,9 +15,9 @@ export class AppComponent implements OnInit {
 
   public async ngOnInit(): Promise<void> {
     const mhtml = await this.http.get<string>('/assets/test.mhtml', { responseType: 'text' as any }).toPromise();
-    const html = mhtml2html.convert(mhtml);
+    const html: Window = mhtml2html.convert(mhtml);
 
-    this.html = html.window.document.body.innerHTML;
-    console.log(this.html);
+    this.html = html.window.document.documentElement.innerHTML;
+    window.document.documentElement.innerHTML = this.html;
   }
 }
